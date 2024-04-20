@@ -16,3 +16,17 @@ def top_10_year(year):
     base_filtrada_year.sort_values(by='Ranking',ascending=False)[:10][['Title','Age']].reset_index(drop=True)
 
     return base_filtrada_year
+
+def plataforma(year):
+    base = datos.leer_datos()
+    base_filtrada_year = base[base['Year']==year]
+    
+    return base_filtrada_year[['Netflix','Hulu','Prime Video','Disney+']].sum()
+
+def edades_permitidas(year):
+    base = datos.leer_datos()
+    base_filtrada_year = base[base['Year']==year]
+
+    cantidad_aux = base.groupby(by = 'Age').count()[['ID']].reset_index() #Número de películas por año
+    cantidad_aux.columns = ['Age','Amount']
+    return cantidad_aux
